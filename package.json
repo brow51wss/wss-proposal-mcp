@@ -1,0 +1,22 @@
+{
+  "name": "wss-proposal-mcp",
+  "version": "1.0.0",
+  "description": "White Space Studio — Interactive Proposal Pricing MCP Server. Generates standalone HTML pricing tools and monthly cost calculators for client proposals.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "wss-proposal-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "keywords": ["mcp", "proposal", "pricing", "white-space-studio", "claude"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
