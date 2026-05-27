@@ -12,7 +12,7 @@ This MCP adds three tools to Claude:
 
 | Tool | What it creates |
 |---|---|
-| `generate_pricing_tool` | A full interactive pricing calculator with milestone breakdown, AI-Accelerated toggle, SENTINEL badges, discount field, and grand total |
+| `generate_pricing_tool` | A full interactive pricing calculator with milestone breakdown, AI-Accelerated toggle, manual review flags, discount field, and grand total |
 | `generate_monthly_costs` | A monthly operating costs calculator with clickable maintenance tiers and AI-assisted maintenance toggle |
 | `save_proposal_file` | Saves any HTML string to a specific folder on your computer |
 
@@ -88,7 +88,7 @@ Or give Claude a detailed breakdown:
 
 ## AI-Accelerated pricing
 
-The pricing tool includes an **AI-Accelerated toggle** that shows how much less each feature costs when built with AI-assisted development (vibe coding) + Sentinel security review.
+The pricing tool includes an **AI-Accelerated toggle** that shows how much less each feature costs when built with AI-assisted development. Not every feature saves the same amount — simpler, repeatable work (like UI screens or admin dashboards) can be done much faster with AI, while complex or sensitive features require more human involvement regardless.
 
 Recommended discount rates by work type are built into the tool:
 
@@ -99,7 +99,7 @@ Recommended discount rates by work type are built into the tool:
 | Admin dashboards | 48–55% |
 | Database design | 40–45% |
 | Auth systems (Firebase etc.) | 38–42% |
-| Payment integrations | 25–30% *(SENTINEL)* |
+| Payment integrations | 25–30% *(requires manual review — see below)* |
 | Architecture planning | 12–15% |
 | QA testing | 28–32% |
 
@@ -107,9 +107,17 @@ Pass `ai_discount` as a decimal (e.g. `0.45` for 45%) on each line item.
 
 ---
 
-## SENTINEL items
+## Manual security review flags
 
-Items where payment flows, security tokens, or financial calculations are involved should be flagged with `"sentinel": true`. This adds a 🛡 SENTINEL badge and shows a notice explaining that these items require a human code review even when AI-generated — checking webhook signatures, idempotency, currency precision, and token handling.
+Some features carry a 🛡 **Manual Review Required** badge in the pricing tool. Set `"sentinel": true` on any line item that involves payments, login/authentication, or financial calculations.
+
+This badge does two things:
+
+1. **Signals to your client** that this specific feature gets an extra layer of human review — not just AI generation and ship. A developer manually checks the code for the kinds of mistakes that are easy to miss but costly in production: duplicate charges, incorrect totals, login vulnerabilities, and similar issues.
+
+2. **Justifies the smaller AI discount** on those items. Payments and security features can't be fully handed off to AI — a human has to read the actual code. That review time is real cost, which is why the savings are lower (25–30% instead of 50%+).
+
+If your project doesn't involve payments or sensitive security flows, you won't need this flag at all.
 
 ---
 
